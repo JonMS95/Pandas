@@ -21,3 +21,19 @@ print(reviews.groupby('points').price.min())
 # Same as shown in the previous exercise, apply() function (which was used for mapping DataFrames) can be used here
 # as well. For example, if the first element of each group is wanted to be modified:
 reviews.groupby('winery').apply(lambda df : df.title.iloc[0])
+
+# Another groupby ethod worth mentioning is agg(), which lets the developer apply several functions on the DataFrame
+# simultaneously. For example, it can be used to have a simple statistical summary of the grouped DataFrame.
+# Let's say we want to know how many prices are there for each country, as well as its min and max values.
+statsByCountry = reviews.groupby('country').price.agg([len, min, max])
+print(statsByCountry)
+
+# Until this point, single indexes have been used. However, more than one index can be used to get some more
+# accurate data. For example, data can be grouped by country, then by province:
+countries_and_provinces = reviews.groupby(['country', 'province']).description.agg([len])
+print(countries_and_provinces)
+
+# As seen, the index is now made of two labels: country and province. If the numerical index is wanted to by set
+# again, reset_index() method should be used:
+countries_and_provinces.reset_index()
+print(countries_and_provinces)
