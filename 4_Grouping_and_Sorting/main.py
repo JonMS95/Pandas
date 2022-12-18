@@ -37,3 +37,11 @@ print(countries_and_provinces)
 # again, reset_index() method should be used:
 countries_and_provinces.reset_index()
 print(countries_and_provinces)
+
+# Values can be sorted too. Just use the sort_values() method, using the desired criterion as input parameter.
+# Note that different from agg method, sort_values uses strings as input parameters for 'by' argument.
+countries = reviews.groupby('country').description.agg([len])
+countries.reset_index()
+countries.sort_values(by = 'country')
+print("*********")
+print(countries)
